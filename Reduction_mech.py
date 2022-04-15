@@ -8,7 +8,7 @@ def gas_funct(mechanism, initial_state):
     # gas_mech = 'mech_13.yaml'
 
     if mechanism == 2:
-        gas_mech = 'mech_13.yaml'
+        gas_mech = 'reaction_kinetics/mech_13.yaml'
     elif mechanism == 1:
         gas_mech = 'gri30.yaml'
     print('Reaction mechanism selected to: ', gas_mech, "\n")

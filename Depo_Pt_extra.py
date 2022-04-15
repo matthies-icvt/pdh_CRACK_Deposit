@@ -47,8 +47,8 @@ alpha1 = 8e7
 alpha2 = 1e10
 
 # reaction mechanism for surface reaction
-reaction_mech_surf = 'Propan_surface.yaml'
-reaction_mech_surf2 = 'Propan_surface2.yaml'
+reaction_mech_surf = 'reaction_kinetics/Propan_surface.yaml'
+reaction_mech_surf2 = 'reaction_kinetics/Propan_surface2.yaml'
 
 M_depo = 80.0 # Molar mass from which the deposition starts
 
