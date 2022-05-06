@@ -84,11 +84,3 @@ for i in (Id_plot[:n_plots]):
 fig.legend()
 fig.show()
 
-
-
-
-
-
-
-
-print("To view a plot of these results, run this script with the option --plot")
