@@ -15,10 +15,10 @@ from itertools import islice
 # iters = int(input('Number of iterations for the pfr-reactor cylcle?\n'))
 # mechanism = int(input('Press 0 for automatic gri_30, 1 to choose reduced gri30 or Press 2 to choose mech_13\n'))
 # inactiv = int(input('Should surface be decreased due to deposition? 1- yes'))
-n_steps = 20
+n_steps = 100
 mechanism = 2
 remove = 1
-inactiv = 20 # inactiv = 1 no deactivation, inactiv > 1 how many cycles should reactor work with decreasing surface every cycle. %10==0!
+inactiv = 1 # inactiv = 1 no deactivation, inactiv > 1 how many cycles should reactor work with decreasing surface every cycle. %10==0!
 Depo_plots = 10
 # starts counting time in which program runs
 start_time = time.time()
@@ -27,13 +27,13 @@ start_time = time.time()
 # relative temperature [K]
 T_0_n = 293.0
 # inlet temperature [K]
-T_0 = 590 + 273.15
+T_0 = 550 + 273.15
 # wall temperature [K]
-T_wall = 600 + 273.15
+T_wall = 610 + 273.15
 # constant pressure [Pa]
 pressure = ct.one_atm
 # flow rate [m3/s] volumen flow standarized for 273K
-vol_flow_rate_N = 9.166667e-7
+vol_flow_rate_N = 55*1e-3*1e-3 #9.166667e-6
 # composition
 composition_0 = 'C3H8:10, H2:1'
 # composition_0 = 'CH4:1, O2:1.5, AR:0.1'
@@ -53,10 +53,10 @@ reaction_mech_surf2 = 'reaction_kinetics/Propan_surface2.yaml'
 M_depo = 80.0 # Molar mass from which the deposition starts
 
 #-------------------- REACTOR GEOMETRY --------------------#
-length = 0.0815  # *approximate* PFR length [m]
-area = 0.000228  # cross-sectional area of reactor [m**2]
+length = 0.1 #0.0815  # *approximate* PFR length [m]
 height = 0.006  # [m]
 depth = 0.038  # [m]
+area = height*depth  # cross-sectional area of reactor [m**2]
 porosity = 0.6 # [-] It's not a porosity per se, it defines what fraction of reactor will be surface reactor.
 cat_area_per_vol = 150   # Catalyst particle surface area per unit volume [1/m] What is a good value?
 area_react = area * (1-porosity)
