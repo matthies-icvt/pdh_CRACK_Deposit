@@ -166,6 +166,9 @@ for spec in ['H2', 'C3H8', 'C3H6', 'CH4']:
 
 ###
 #calculate mass net production
+mass_reactor = r_gas_surf.mass
+mol_weights = gas.molecular_weights #g/mol
+print(gas.kinetics_species_names) #names (same sorting)
 
 
-
+print(mol_weights)
