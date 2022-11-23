@@ -15,11 +15,11 @@ from itertools import islice
 # iters = int(input('Number of iterations for the pfr-reactor cylcle?\n'))
 # mechanism = int(input('Press 0 for automatic gri_30, 1 to choose reduced gri30 or Press 2 to choose mech_13\n'))
 # inactiv = int(input('Should surface be decreased due to deposition? 1- yes'))
-n_steps = 100
+n_steps = 200
 mechanism = 2
 remove = 1
-inactiv = 1 # inactiv = 1 no deactivation, inactiv > 1 how many cycles should reactor work with decreasing surface every cycle. %10==0!
-Depo_plots = 10
+inactiv = 10 # inactiv = 1 no deactivation, inactiv > 1 how many cycles should reactor work with decreasing surface every cycle. %10==0!
+Depo_plots = 5
 # starts counting time in which program runs
 start_time = time.time()
 
@@ -43,8 +43,8 @@ reactive_state = T_wall, pressure, composition_0
 
 #-------------------- DEPOSITION MODEL PARAMETERS --------------------#
 # Surface deactivation coefficient - is used to artificially enlarge the influence of deposition on a surface
-alpha1 = 8e7
-alpha2 = 1e10
+alpha1 = 1e5
+alpha2 = 2e5
 
 # reaction mechanism for surface reaction
 reaction_mech_surf = 'reaction_kinetics/Propan_surface.yaml'
@@ -53,12 +53,15 @@ reaction_mech_surf2 = 'reaction_kinetics/Propan_surface2.yaml'
 M_depo = 80.0 # Molar mass from which the deposition starts
 
 #-------------------- REACTOR GEOMETRY --------------------#
-length = 0.1 #0.0815  # *approximate* PFR length [m]
+length = 40*10**-3 + 60*10**-3 #0.0815  # Kat length + rest of reactor *approximate* PFR length [m]
 height = 0.006  # [m]
 depth = 0.038  # [m]
 area = height*depth  # cross-sectional area of reactor [m**2]
 porosity = 0.6 # [-] It's not a porosity per se, it defines what fraction of reactor will be surface reactor.
-cat_area_per_vol = 150   # Catalyst particle surface area per unit volume [1/m] What is a good value?
+# Zeolite has a surface of 400-425 m2 per g. Density is ca. 720 g/litre (Datenblatt zsm5 pellets https://www.acsmaterial.com/zsm-5-catalyst.html) -> surface per vol: 405*720*10^3*m2/m3
+zsm5_area_per_vol = 291.6*10**6   # Catalyst particle surface area per unit volume [1/m] 
+surf_pt = 0.559 #m2 est. surface of inner pt surface
+cat_area_per_vol = surf_pt / (length * height * depth)
 area_react = area * (1-porosity)
 area_cat = area * porosity
 beta = 1 # How much from the main flow (gas reactor) will flow to the surface reactor, 1 = whole mass stream
@@ -114,7 +117,7 @@ for cycle in range (inactiv):
 
     # cat volume and catalyst surface area in one reactor
     cat_vol = area_cat * dz  # This reactor volume is smaller as it represents only near wall zone
-    cat_surf = cat_vol * cat_area_per_vol
+    cat_surf = surf_pt
 
     # create a new reactor for gas phase
     reactor = ct.IdealGasReactor(contents=gas, energy='on')

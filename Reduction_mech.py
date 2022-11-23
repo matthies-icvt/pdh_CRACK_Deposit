@@ -48,7 +48,7 @@ def gas_funct(mechanism, initial_state):
     R = sorted(zip(Rmax, gas.reactions()), key=lambda x: -x[0])
 
     # Smallest reactions rate accepted
-    kmin = 10.0 ** (-15)
+    kmin = 10.0 ** (-18) #before 10^-15
     # Create an empty list for reactions
     reactions = []
 

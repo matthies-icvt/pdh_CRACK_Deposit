@@ -23,7 +23,7 @@ phases:
   reactions: declared-species
   state:
     T: 900.0
-    coverages: {O(S): 0.0, PT(S): 0.5, H(S): 0.5} #PT(S): 0.01, H(S): 0.99}
+    coverages: {O(S): 0.0, PT(S): 1.0, H(S): 0.0} #PT(S): 0.01, H(S): 0.99}
   site-density: 2.72e-09
 
 species:
@@ -346,5 +346,5 @@ reactions:
 #  rate-constant: { A: 4.6334e+42, b: 0.5 , Ea: 0 } # Reaction 37 (19 ptcombust.yaml) Ea: 120000 b: 0.5
 
 - equation: C3H8 + 2 H(S) => C3H6 + 2 H2 + 2 PT(S)
-  rate-constant: { A: 4.6334e+46, b: 0.0 , Ea: 120000 } # Reaction 37 (19 ptcombust.yaml) Ea: 120000 b: 0.5
+  rate-constant: { A: .0e+42, b: 0.0 , Ea: 120000 } # Reaction 37 (19 ptcombust.yaml) Ea: 120000 b: 0.5
 #  orders: { PT(S): 2.3 }

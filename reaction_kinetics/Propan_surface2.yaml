@@ -346,5 +346,5 @@ reactions:
 #  rate-constant: { A: 4.6334e+42, b: 0.5 , Ea: 0 } # Reaction 37 (19 ptcombust.yaml) Ea: 120000 b: 0.5
 
 - equation: C3H8 + 2 H(S) => C2H6 + CH4 + 2 PT(S)
-  rate-constant: { A: 4.6334e+45, b: 0.0 , Ea: 120000 } # Reaction 37 (19 ptcombust.yaml) Ea: 120000 b: 0.5
+  rate-constant: { A: 4.0e+20, b: 0.0 , Ea: 120000 } # Reaction 37 (19 ptcombust.yaml) Ea: 120000 b: 0.5
 #  orders: { PT(S): 2.3 }
