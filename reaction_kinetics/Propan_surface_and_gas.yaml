@@ -220,9 +220,9 @@ surf-reactions:
 - equation: H2 + 2 PT(S) => 2 H(S)  # Reaction 1
   rate-constant: {A: 4.4579e+10, b: 0.5, Ea: 0}
   orders: {PT(S): 1}
-- equation: 2 H(s) => H2 + 2 Pt(s)
+- equation: 2 H(S) => H2 + 2 Pt(S)
   rate-constant: {A: 3.7e21 cm^2/mol/s, b: 0, Ea: 67400 J/mol}
-  coverage-dependencies: {H(s): {a: 0, m: 0, E: -6000 J/mol}}
+  coverage-dependencies: {H(S): {a: 0, m: 0, E: -6000 J/mol}}
 - equation: C3H8 + 2 H(S) => C3H6 + 2 H2 + 2 PT(S)
   rate-constant: { A: 1.0e+21, b: 0.0 , Ea: 28680 } # Reaction 37 (19 ptcombust.yaml) Ea: 120000 b: 0.5
 #- equation: C3H8  => C3H6 + H2

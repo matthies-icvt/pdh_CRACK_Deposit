@@ -51,7 +51,7 @@ composition_0 = 'C3H8:10, H2:0'
 initial_state = T_0, pressure, composition_0
 
 gas.TPX = initial_state
-conc_0 = gas.concentrations * 1000
+conc_0 = gas.concentrations * 1000 #mol/m3
 
 pt_cat.TP = T_0, pressure
 cov = pt_cat.coverages
@@ -164,11 +164,60 @@ for spec in ['H2', 'C3H8', 'C3H6', 'CH4']:
     print(str(spec) + ':\t\t' + str(conc[spec]) + ' mol/m3')
     print(str(spec) + '/dt:\t' + str(mol_net_production[spec]) + ' mol/m3/s')
 
+dN_reaction = sum(mol_net_production.values()) * dV_r_gas * dt #mol
+print('dN of reactions = ' + str(dN_reaction) + ' mol')
+
+total_N_gas_direct = sum(gas.concentrations) * 1000 * dV_r_gas
+print('N of conc direct = ' + str(total_N_gas_direct) + ' mol')
+print('N of conc direct + dN = ' + str(total_N_gas_direct+dN_reaction) + ' mol')
+
+total_N_gas = sum(conc.values()) * dV_r_gas
+print('N of conc = ' + str(total_N_gas) + ' mol')
 ###
+
+gas_reaction_spec_names = gas.kinetics_species_names
 #calculate mass net production
+mass_gas_r = gas_r.mass #kg
+print('mass in gas = ' + str(mass_gas_r) + ' kg')
+
+MW_total_gas_r = gas.mean_molecular_weight / 1000 #kg/mol
+MW_list = gas.molecular_weights
+MW_mean = 0
+for idx, x in enumerate(gas.X):
+    MW_mean += x * MW_list[idx] / 1000 #kg/mol
+
+print('mean molar cantera = ' + str(MW_total_gas_r) + ' kg/mol')
+print('mean molar me = ' + str(MW_mean) + ' kg/mol')
+
+print('mean molar weight in gas = ' + str(MW_mean) + ' kg/mol')
+mole_content_total_0 = mass_gas_r / MW_mean # kg/(kg/mol)=mol
+print('moles in gas (from mass dens) = ' + str(mole_content_total_0) + ' mol')
+
+dens_moles_gas = gas.density_mole * 1000 #[mol/m3]
+print('density in gas = ' + str(dens_moles_gas) + ' mol/m3')
+
+mole_content_total_0 = dV_r_gas * dens_moles_gas
+print('moles in gas (from mole dens) = ' + str(mole_content_total_0) + ' mol')
+
+abs_molar_contents_0 = []
+for idx, X_i in enumerate(gas.X):
+    #print(X_i)
+    spec_molar_content_gas_0 = X_i * mole_content_total_0
+    abs_molar_contents_0.append(spec_molar_content_gas_0)
+    #print(gas_reaction_spec_names[idx] + ' ' + str(spec_molar_content_gas_0))
 mass_reactor = r_gas_surf.mass
 mol_weights = gas.molecular_weights #g/mol
 print(gas.kinetics_species_names) #names (same sorting)
 
+abs_molar_contents_0 = dict(zip(gas_reaction_spec_names,abs_molar_contents_0))
+print(abs_molar_contents_0)
+print('total n_0 from mass = ' + str(sum(abs_molar_contents_0.values())) + ' mol')
 
-print(mol_weights)
+abs_molar_contents = []
+for spec_name in gas_reaction_spec_names:
+    abs_molar_contents.append(abs_molar_contents_0[spec_name]+ mol_net_production[spec_name] * dV_r_gas * dt) #mol
+print(mol_weights)abs_molar_contents = dict(zip(gas_reaction_spec_names,abs_molar_contents))
+print(abs_molar_contents)
+
+print('total n from concentrations = ' + str(total_N_gas) + ' mol')
+print('total n from mass = ' + str(sum(abs_molar_contents.values())) + ' mol')
