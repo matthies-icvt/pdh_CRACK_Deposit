@@ -216,8 +216,10 @@ print('total n_0 from mass = ' + str(sum(abs_molar_contents_0.values())) + ' mol
 abs_molar_contents = []
 for spec_name in gas_reaction_spec_names:
     abs_molar_contents.append(abs_molar_contents_0[spec_name]+ mol_net_production[spec_name] * dV_r_gas * dt) #mol
-print(mol_weights)abs_molar_contents = dict(zip(gas_reaction_spec_names,abs_molar_contents))
+print(mol_weights)
+abs_molar_contents = dict(zip(gas_reaction_spec_names,abs_molar_contents))
 print(abs_molar_contents)
 
 print('total n from concentrations = ' + str(total_N_gas) + ' mol')
 print('total n from mass = ' + str(sum(abs_molar_contents.values())) + ' mol')
+
